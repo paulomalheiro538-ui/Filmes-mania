@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      - PORT=3000
+      - YT_API_KEY=${YT_API_KEY}
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/movies
+      - PLAYWRIGHT_HEADLESS=true
+    depends_on:
+      - db
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+volumes:
+  dbdata:
