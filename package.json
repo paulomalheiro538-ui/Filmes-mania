@@ -1,6 +1,7 @@
 {
   "name": "mvp-movie-scenes-miner",
   "version": "0.2.0",
+  "description": "Aplicação Node.js para minerar e gerenciar cenas de filmes, integrando APIs e banco de dados, com suporte a execução em produção e desenvolvimento.",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
