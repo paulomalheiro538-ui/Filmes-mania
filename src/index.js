@@ -27,13 +27,12 @@ const youtube = google.youtube({
 app.use(cors());
 
 // --- SERVE O FRONTEND DO REACT ---
-// Define a pasta 'build' como a pasta de arquivos estáticos
-app.use(express.static(path.join(__dirname, '..', 'Cliente_src', 'build')));
+// Define a pasta 'build' na raiz do projeto como a pasta de arquivos estáticos
+app.use(express.static(path.join(__dirname, '..', 'build')));
 
 // Para qualquer outra rota que não seja a API, o servidor irá enviar o arquivo index.html
-// Isso garante que o React Router (se você estiver usando) funcione
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'Cliente_src', 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
 
 // --- FIM DA CONFIGURAÇÃO DO FRONTEND ---
@@ -66,8 +65,6 @@ app.get('/api/videos', async (req, res) => {
     res.status(500).json({ error: 'Falha ao buscar vídeos' });
   }
 });
-
-// Removemos a rota `app.get('/')` de teste, pois ela não é mais necessária
 
 // Inicia o servidor
 app.listen(port, () => {
