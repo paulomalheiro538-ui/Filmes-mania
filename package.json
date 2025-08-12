@@ -13,8 +13,8 @@
     "playwright": "^1.40.0",
     "googleapis": "^124.0.0",
     "dayjs": "^1.11.9",
-    "dotenv": "^16.0.3",
-    "normalize-text": "1.0.1"
+    "dotenv": "^16.0.3"
+    
 
   },
   "devDependencies": {
