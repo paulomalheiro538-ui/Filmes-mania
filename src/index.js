@@ -6,6 +6,7 @@ require('dotenv').config();
 // Importa os módulos necessários
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const { google } = require('googleapis');
 
 // Cria a instância do aplicativo Express
@@ -24,6 +25,18 @@ const youtube = google.youtube({
 
 // Middleware para permitir requisições de diferentes origens (CORS)
 app.use(cors());
+
+// --- SERVE O FRONTEND DO REACT ---
+// Define a pasta 'build' como a pasta de arquivos estáticos
+app.use(express.static(path.join(__dirname, '..', 'Cliente_src', 'build')));
+
+// Para qualquer outra rota que não seja a API, o servidor irá enviar o arquivo index.html
+// Isso garante que o React Router (se você estiver usando) funcione
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'Cliente_src', 'build', 'index.html'));
+});
+
+// --- FIM DA CONFIGURAÇÃO DO FRONTEND ---
 
 // Rota para buscar vídeos
 app.get('/api/videos', async (req, res) => {
@@ -54,13 +67,10 @@ app.get('/api/videos', async (req, res) => {
   }
 });
 
-// Rota para a página inicial (pode ser usada para um teste simples)
-app.get('/', (req, res) => {
-  res.send('Servidor do Filmes-mania está online!');
-});
+// Removemos a rota `app.get('/')` de teste, pois ela não é mais necessária
 
 // Inicia o servidor
 app.listen(port, () => {
   console.log(`Servidor backend rodando em http://localhost:${port}`);
-  console.log('Agora inicie o frontend na outra pasta para ver os vídeos!');
+  console.log('Agora acesse http://localhost:3000 para ver o frontend!');
 });
