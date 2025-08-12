@@ -4,7 +4,7 @@
   "description": "Aplicação Node.js para minerar e gerenciar cenas de filmes, integrando APIs e banco de dados, com suporte a execução em produção e desenvolvimento.",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "npm run build --prefix Cliente_src && node src/index.js",
     "dev": "nodemon src/index.js"
   },
   "dependencies": {
