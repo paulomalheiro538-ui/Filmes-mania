@@ -33,6 +33,6 @@ app.get('/api/videos', (req, res) => {
   res.json(mockVideos);
 });
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
