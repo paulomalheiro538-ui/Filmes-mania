@@ -1,4 +1,4 @@
-// src/index.js
+// backend/index.js
 
 // Carrega as variáveis de ambiente do arquivo .env
 require('dotenv').config();
@@ -27,10 +27,12 @@ const youtube = google.youtube({
 app.use(cors());
 
 // --- SERVE O FRONTEND DO REACT ---
-// Define a pasta 'build' na raiz do projeto como a pasta de arquivos estáticos
+// Define a pasta 'build' como a pasta de arquivos estáticos.
+// O `path.join` ajuda a encontrar a pasta correta.
 app.use(express.static(path.join(__dirname, '..', 'build')));
 
-// Para qualquer outra rota que não seja a API, o servidor irá enviar o arquivo index.html
+// Para qualquer outra rota que não seja a API, o servidor irá enviar o arquivo index.html.
+// Isso é essencial para o React Router funcionar.
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
