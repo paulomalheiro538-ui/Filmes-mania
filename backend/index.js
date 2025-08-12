@@ -28,11 +28,10 @@ app.use(cors());
 
 // --- SERVE O FRONTEND DO REACT ---
 // Define a pasta 'build' como a pasta de arquivos estáticos.
-// O `path.join` ajuda a encontrar a pasta correta.
+// O `path.join` ajuda a encontrar a pasta correta na raiz do projeto.
 app.use(express.static(path.join(__dirname, '..', 'build')));
 
 // Para qualquer outra rota que não seja a API, o servidor irá enviar o arquivo index.html.
-// Isso é essencial para o React Router funcionar.
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
@@ -42,10 +41,8 @@ app.get('*', (req, res) => {
 // Rota para buscar vídeos
 app.get('/api/videos', async (req, res) => {
   try {
-    // Termo de busca (futuramente virá do frontend)
     const searchQuery = 'cenas de filmes famosas';
 
-    // Chama a API do YouTube
     const response = await youtube.search.list({
       part: 'snippet',
       q: searchQuery,
@@ -53,7 +50,6 @@ app.get('/api/videos', async (req, res) => {
       maxResults: 15,
     });
 
-    // Formata os dados para o frontend
     const videos = response.data.items.map(item => ({
       title: item.snippet.title,
       thumbnail: item.snippet.thumbnails.high.url,
